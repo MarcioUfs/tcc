@@ -14,7 +14,10 @@ Diante da dificuldade enfrentada pelos servidores da SEASC, identificamos a nece
 
 O principal objetivo do SIPECAD é aumentar a velocidade e a eficiência das pesquisas e consultas realizadas pelos servidores da SEASC no Cadastro Único. Além disso, o sistema visa facilitar a extração de folhas resumo em PDF, contribuindo para a agilidade e a precisão do processo de confirmação documental para a emissão do RG Inclusivo.
 
+## Desenvolvimento
+
+O projeto foi dividido em duas partes backend e frontend, o modelo arquitetural utilizado foi o clinte-servidor onde o backend é responsável pela manipulação da informação enquanto o frontend efetua as solicitações da mesma, você pode visualizar as duas partes do projeto nestes links [backend](https://github.com/MarcioUfs/tcc/tree/main/backend) e [frontend](https://github.com/MarcioUfs/tcc/tree/main/frontend) em cada um deles haverá um guia para instalação.
+
 ## Conclusão
 
 O desenvolvimento do SIPECAD representa um importante avanço na gestão e no atendimento às famílias em situação de vulnerabilidade social em Sergipe. Ao proporcionar uma ferramenta mais ágil e eficiente para os servidores da SEASC, esperamos contribuir para a melhoria dos serviços prestados e para o bem-estar da população atendida pelo Cadastro Único.
-
