@@ -9,8 +9,10 @@ router.post('/sign-up', verifyJWT, userController.create);
 router.post('/login', userController.login);
 router.post('/confirm', verifyJWTAdmin, userController.confirmAdmin );
 router.get('/allusers',verifyJWT,userController.allUsers);
+router.get('/getUser',verifyJWT,userController.getUser);
 router.post('/deleteuser',verifyJWT,userController.deleteUser);
 router.put('/updateuser/:id',verifyJWT,userController.updateUser);
+router.put('/updateMyUser/:id',verifyJWT,userController.updateMyUser);
 router.post('/catchuser',verifyJWT,userController.catchUser);
 
 module.exports = router;

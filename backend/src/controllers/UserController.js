@@ -39,7 +39,6 @@ async function create(req, res) {
             return res.status(500).json({ "msg": "Erro do servidor" })
         })
 }
-
 function login(req, res) {
     let saida = tratarCpf(req.body.cpf);
     if (saida === 0) {
@@ -147,6 +146,80 @@ async function updateUser(req, res) {
         })
     }
 }
+// async function updateMyUser(req, res) {
+//     if (isNaN(req.params.id)) {
+//         return res.status(404).send({ "msg": "Usuário não encontrado" })
+//     }
+//     if (req.body.nome === '' || req.body.cpf === '' || req.body.email === '' ) {
+//         return res.status(403).send({ "msg": "Dados incompletos!" })
+//     } else {
+//         bcryptjs.genSalt(10, function (err, salt) {
+//             bcryptjs.hash(req.body.password, salt, async function (err, hash) {
+//                 const user = {
+//                     email: req.body.email, 
+//                     cpf: req.body.cpf, 
+//                     nome: req.body.nome
+//                 }
+//                 try {
+//                     if (
+//                         user.email === '' || user.cpf === '' || user.nome === '') {
+//                         return res.status(403).json({ "msg": "Falta algum dado!" })
+//                     }
+//                     await database
+//                         .table('users')
+//                         .where({ id_user: req.params.id })
+//                         .update(user)
+//                         .then(data => {
+//                             return res.status(200).json({ "msg": "Cadastrado com sucesso!" })
+//                         }).catch(err => {
+//                             return res.status(500).json({ "msg": "Erro interno do servidor" })
+//                         })
+//                 } catch (error) {
+//                     console.log(error)
+//                 }
+//             })
+//         })
+//     }
+// }
+async function updateMyUser(req, res) {
+    if (isNaN(req.params.id)) {
+        return res.status(404).send({ "msg": "Usuário não encontrado" });
+    }
+
+    // Verifica se os campos obrigatórios estão preenchidos
+    if (!req.body.nome || !req.body.cpf || !req.body.email) {
+        return res.status(403).send({ "msg": "Dados incompletos!" });
+    }
+
+    const user = {
+        email: req.body.email, 
+        cpf: req.body.cpf, 
+        nome: req.body.nome
+    };
+
+    try {
+        // Atualiza os dados do usuário no banco de dados
+        await database
+            .table('users')
+            .where({ id_user: req.params.id })
+            .update(user)
+            .then(data => {
+                if (data === 0) {
+                    return res.status(404).send({ "msg": "Usuário não encontrado" });
+                } else {
+                    return res.status(200).json({ "msg": "Atualizado com sucesso!" });
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                return res.status(500).json({ "msg": "Erro interno do servidor" });
+            });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ "msg": "Erro interno do servidor" });
+    }
+}
+
 async function catchUser(req, res) {
     await database.table('users').where({ id_user: req.body.id })
         .then(data => {
@@ -167,12 +240,65 @@ async function catchUser(req, res) {
             return res.status(500).json({ "msg": `"Erro do servidor ${error}"` })
         })
 }
+
+// async function getUser(req, res) {
+//     await database.table('users').where({ id_user: req.body.id }) 
+//     // await database.table('users').where({ id_user: 10 })
+//         .then(data => {
+//             if (data.length <= 0) {
+//                 return res.status(404).send({ "msg": "Usuário não encontrado" })
+//             } else {
+//                 let result = JSON.parse(`{
+//                 "nome":"${data[0].nome}",
+//                 "cpf":"${data[0].cpf}",
+//                 "email":"${data[0].email}",
+//                 "role":"${data[0].role}",
+//                 "id":"${data[0].id_user}"
+//             }`)
+//                 return res.status(200).send(result)
+//             }
+//         })
+//         .catch(error => {
+//             return res.status(500).json({ "msg": `"Erro do servidor ${error}"` })
+//         })
+// }
+async function getUser(req, res) {
+    const token = req.headers.authorization.split(' ')[1];
+    jwt.verify(token, process.env.SECRET, async (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ msg: 'Token inválido ou expirado' });
+        } else {
+            const userId = decoded.id_user;
+            await database.table('users').where({ id_user: userId })
+                .then(data => {
+                    if (data.length <= 0) {
+                        return res.status(404).send({ msg: 'Usuário não encontrado' });
+                    } else {
+                        const userData = {
+                            nome: data[0].nome,
+                            cpf: data[0].cpf,
+                            email: data[0].email,
+                            role: data[0].role,
+                            id: data[0].id_user
+                        };
+                        console.log(userData)
+                        return res.status(200).send(userData);
+                    }
+                })
+                .catch(error => {
+                    return res.status(500).json({ msg: `Erro do servidor ${error}` });
+                });
+        }
+    });
+}
 module.exports = {
     create: create,
     login: login,
     confirmAdmin: confirmAdmin,
     allUsers: allUsers,
+    getUser: getUser,
     deleteUser: deleteUser,
     updateUser: updateUser,
+    updateMyUser:updateMyUser,
     catchUser: catchUser,
 }
