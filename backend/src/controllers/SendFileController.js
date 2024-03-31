@@ -1,7 +1,16 @@
 const init = require('../functions/init');
 const createEmptyFile = require('../functions/createEmptyFile');
 const pool = require('../database/database');
+const cron = require('node-cron');
 
+// Agendar uma tarefa para executar todos os dias às 3 horas da manhã
+const job = cron.schedule('0 3 * * *', async function () {
+    // console.log('Tarefa agendada executada às 3 horas da manhã.');
+    const saida = await pool.query(`SELECT pref_cad, count(*) AS TOTAL FROM pessoas GROUP BY (pref_cad)`)
+    console.log(saida.rows)
+    return res.status(200).send(saida.rows)
+
+});
 const store = (req, res) => {
     try {
         const fido = req.file;
@@ -12,8 +21,8 @@ const store = (req, res) => {
         createEmptyFile();
         console.log(error)
         res.status(400).send({ "msg": "Arquivo não enviado!" })
-    } 
-  
+    }
+
 }
 const show = async (req, res) => {
     try {
