@@ -7,6 +7,7 @@ import sendFile from './pages/dados/dados';
 import search from './pages/pDashboard/dashboard';
 import tabulador from './pages/pTabulador/pageTabulador';
 import person from './pages/pPerson/index';
+import myUser from './pages/pMyUser/index';
 import { DadosProvider } from '../src/Context/DataContext'
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -30,6 +31,7 @@ const Routes = () => (
         <PrivateRoute exact path="/search" component={search} />
         <PrivateRoute exact path="/tabulador" component={tabulador} />
         <PrivateRoute exact path="/person" component={person} />
+        <PrivateRoute exact path="/user" component={myUser} />
       </DadosProvider>
       <Route path="*" component={() => <div style={{ Height: '100%', Width: '450px', margin: '15% 40%' }}><h1>Página não encontrada</h1></div>} />
     </Switch>

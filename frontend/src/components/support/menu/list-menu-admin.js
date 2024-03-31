@@ -5,7 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import StorageIcon from '@material-ui/icons/Storage';
-// import People from '@material-ui/icons/People';
+import People from '@material-ui/icons/People';
 import SearchIcon from '@material-ui/icons/Search';
 import LocationSearchingIcon from '@material-ui/icons/LocationSearching';
 import { logout } from '../../../services/auth';
@@ -48,7 +48,7 @@ export const mainListItems = (
       <ListItemIcon>
         <SearchIcon />
       </ListItemIcon>
-      <ListItemText primary="Tabulador" />
+      <ListItemText primary="Pesquisa tabulador" />
     </ListItem>
     <ListItem button component="a" href="/search">
       <ListItemIcon>
@@ -62,11 +62,17 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Enviar base" />
     </ListItem>
-    <ListItem button component="a" href="/person">
+    <ListItem button component="a" href="/user">
       <ListItemIcon>
       <Person />
       </ListItemIcon>
-      <ListItemText primary="Adicionar usuario" />
+      <ListItemText primary="Minha conta" />
+    </ListItem>
+    <ListItem button component="a" href="/person">
+      <ListItemIcon>
+      <People />
+      </ListItemIcon>
+      <ListItemText primary="Administrar usuários" />
     </ListItem>
   </div>
 );
