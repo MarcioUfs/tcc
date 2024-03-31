@@ -471,7 +471,7 @@ const Person = () => {
         <Container component="main" maxWidth="md">
             <div className={style.mainContainer}>
                 <CssBaseline />
-                <MenuAdmin view={"Usuários"} />
+                <MenuAdmin view={"Administrar usuários"} />
                 {boolAut ? (
                     <form onSubmit={e => confirmAdmin(e)} >
                         <Typography variant="h6" color="textSecondary" align="center">Insira sua senha de administrador</Typography>

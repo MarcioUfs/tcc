@@ -243,7 +243,7 @@ const Dashboard = () => {
     };
     return (
         <div className={style.mainContainer}>
-            <MenuAdmin view={"Pesquisa"} />
+            <MenuAdmin view={"Pesquisa livre"} />
             <div className={style.listContainer}>
                 <div className="searchBar">
                     <form onSubmit={handleSubmit} method="post">

@@ -17,7 +17,7 @@ function SendFile() {
     const style = useStyles();
     const filesElement = useRef(null);
     const [headers, setHeaders] = useState();
-    const [menuString] = useState('Dados');
+    const [menuString] = useState('Enviar base');
     const [showBases, setShowBases] = useState([]);
     const [loadIcon, setLoadIcon] = useState(false);
     useEffect(() => {

@@ -190,7 +190,7 @@ const Tabulador = () => {
 
     return (
         <div className={style.mainContainer}>
-            <MenuAdmin view={"Tabulador"} />
+            <MenuAdmin view={"Pesquisa tabulador"} />
             <Container className={style.listContainer}>
                 <div>
                     <h1 className={style.titulo}>Tabulador do Cadastro Único Sergipe</h1>
