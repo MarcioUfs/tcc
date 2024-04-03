@@ -52,15 +52,37 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     inputs: {
-        margin: '1% 0',
-        borderRadius: '4px',
-        width: '100%',
-        height: '35px',
-        maxWidth: '90vw',
-        background: '#ffffff',
-        boxShadow: '1px 1px 3px rgba(0, 0, 0, 0.5)',
-        border: '0 none',
-        fontSize: '1.3em',
+        display:'none'
+        // margin: '0 10px 0 0',
+        // borderRadius: '4px',
+        // width: '70vw',
+        // height: '35px',
+        // maxWidth: '90vw',
+        // background: '#ffffff',
+        // boxShadow: '1px 1px 3px rgba(0, 0, 0, 0.5)',
+        // border: '0 none',
+        // fontSize: '1.3em',
+        // cursor: 'pointer'
+    },
+    labelButton:{
+        padding: '20px 10px',
+        width: '200px',
+        margin: '0 0 10px 0',
+        background: '#313f9f',
+        color:'#FFF',
+        textTransform: 'uppercase',
+        display: 'block',
+        marginTop: '10px',
+        fontFamili: 'Arial, Helvetica, sans-serrif',
+        textAlign: 'center',
+        cursor: 'pointer',
+        transition: 'background 0.5s',
+        borderRadius:'8px', 
+        '&:hover': { 
+          background: '#FFF', 
+          color: 'green'
+        },
+
     },
     textAreaStyle: {
         width: '98%',
